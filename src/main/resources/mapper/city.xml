@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdeledu.datahub.metadata.mybatis.CityMapper">
+
+	<resultMap type="City" id="CityResult">
+		<id column="id" property="id" />
+	    <result property="name" column="name" />
+	</resultMap>
+
+	<resultMap type="Video" id="VideoResult">
+		<result property="videoID" column="videoID" />
+		<result property="cwID" column="cwID" />
+	</resultMap>
+	<resultMap type="Option" id="OptionResult">
+		<result column="quesOption" property="quesOption" />
+		<result column="quesValue" property="quesValue" />
+	</resultMap>
+	<resultMap type="Question" id="QuestionResult">
+		<id column="questionID" property="questionID" />
+		<result column="content" property="content" />
+		<association column="questionID" property="video" resultMap="VideoResult" />
+		<collection column="questionID" property="option" resultMap="OptionResult" />
+	</resultMap>
+
+	<select id="likeName" parameterType="string" resultType="City">
+        SELECT id, name, state, country
+        FROM city
+        WHERE name = #{name}
+    </select>
+</mapper>
